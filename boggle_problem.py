@@ -3,8 +3,8 @@ def createBoard():
 	coord = []
 	for y in range(4):
 		for x in range(4):
-			coord.append((x, y))
-	board = {coord[0]:'M', coord[1]:'B', coord[2]:'C', coord[3]:'D', coord[4]:'A', coord[5]:'M', coord[6]:'G', coord[7]:'I', coord[8]:'G', coord[9]:'O', coord[10]:'A', coord[11]:'L', coord[12]:'C', coord[13]:'X', coord[14]:'O', coord[15]:'Z'}
+			coord.append('('+str(x)+','+str(y)+')')
+	board = {coord[0]:'M', coord[1]:'B', coord[2]:'C', coord[3]:'D', coord[4]:'A', coord[5]:'M', coord[6]:'G', coord[7]:'I', coord[8]:'G', coord[9]:'O', coord[10]:'A', coord[11]:'L', coord[12]:'M', coord[13]:'X', coord[14]:'O', coord[15]:'Z'}
 	return board, coord
 
 #print the board to the user
@@ -29,12 +29,12 @@ def isWordLegal(board, coord, word, currentLetterIt = None, letPos = None):
 		currentLetterIt = 0
 		#where is currentLetter
 		letPos = findLetterPos(board, coord, word[currentLetterIt])
-	print(str(word[0])+" positions: "+str(letPos))
 	if len(letPos) == 0:
 		#there are no positions
 		return False
 	for number in range(len(letPos)):
 		#check if nextLetter is adjacent to currentLetter
+		print(str(word[currentLetterIt])+" positions: "+str(letPos))
 		nextPositions = isNextLetterAdjacent(board, letPos.pop(), word[currentLetterIt+1])
 		if len(nextPositions) != 0:
 			#is nextLetter the last letter?
@@ -68,10 +68,10 @@ def isNextLetterAdjacent(board, currentLetterPos, nextLetterVal):
 	#Return a list of the the adjacent positions
 	#that have the matching letter
 	adjacentPositions = []
-	print("Position we're getting the adjacent positions for: "+str(currentLetterPos))
-	first, second = currentLetterPos
-	x = int(first)
-	y = int(second)
+	print("Position we're getting the adjacent positions for: "+currentLetterPos)
+	print(currentLetterPos)
+	x = int(currentLetterPos[1])
+	y = int(currentLetterPos[3])
 
 	#map all 8 positions
 	adjacentPositions.append((x-1, y-1))
@@ -114,8 +114,9 @@ def isNextLetterAdjacent(board, currentLetterPos, nextLetterVal):
 	print("These are the positions that are adjacent to our current letter: "+str(adjacentPositions))
 	adjacentPositionsWithLetterVal = []
 	for each in adjacentPositions:
-		if board[each] == nextLetterVal:
-			adjacentPositionsWithLetterVal.append(str(each))
+		x, y = each
+		if board['('+str(x)+','+str(y)+')'] == nextLetterVal:
+			adjacentPositionsWithLetterVal.append('('+str(x)+','+str(y)+')')
 	print("These are the positions that are adjacent with the next letter in them: "+str(adjacentPositionsWithLetterVal))
 	return adjacentPositionsWithLetterVal
 
