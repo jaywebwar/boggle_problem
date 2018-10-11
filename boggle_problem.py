@@ -20,18 +20,56 @@ def printBoard(board, coord, it = None):
 
 #choose a word
 def getWord():
-	return None
+	word = input()
+	return word
 
 #check the board against our chosen word
-def isWordLegal(board, word):
-	return None
+def isWordLegal(board, coord, word, currentLetterIt = None, letPos = None):
+	if currentLetterIt == None:
+		currentLetterIt = 0
+		#where is currentLetter
+		letPos = findLetterPos(board, coord, word[currentLetterIt])
+	if len(letPos) == 0:
+		#there are no positions
+		return False
+	for number in range(len(letPos)):
+		#check if nextLetter is adjacent to currentLetter
+		isIt, nextPositions = isNextLetterAdjacent(board, coord, letPos.pop(), word[currentLetterIt+1])
+		if isIt:
+			#is nextLetter the last letter?
+			if len(word)-1 == currentLetterIt+1:
+				return True
+			#advance letterIt and check if legal
+			currentLetterIt = currentLetterIt +1
+			if isWordLegal(board, coord, word, currentLetterIt, nextPositions):
+				return True
+	#None of the positions had the next letter
+	return False
 
 #print whether the word is legal or not
 def printAnswer(isLegal):
-	return None
+	if isLegal:
+		print("Good answer")
+	else:
+		print("Bad answer")
+
+#helper functions for isWordLegal
+def findLetterPos(board, coord, letter):
+	positions = []
+	#return all  positions on the board that match letter
+	for each in coord:
+		if board[each] == letter:
+			positions.append(each)
+	return positions
+
+def isNextLetterAdjacent(board, coord, currentLetterPos, nextLetterVal):
+	#This function needs to return bool for whether or not the next
+	#letter is adjacent and return a list of the the adjacent positions
+	#that have the matching letter
+	return None, None
 
 if __name__ == "__main__":
 	board, coord = createBoard()
 	printBoard(board, coord)
-	#chosenWord = getWord()
-	#printAnswer(isWordLegal(board, chosenWord))
+	chosenWord = getWord()
+	printAnswer(isWordLegal(board, coord, chosenWord))
