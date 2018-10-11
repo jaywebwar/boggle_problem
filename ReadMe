@@ -1,0 +1,8 @@
+This should be the solution to the problem we worked on yesterday.
+
+It is intended to be run in the terminal:
+$python3 boggle_problem.py
+
+It'll show you a mapping similar to what you wrote on the board. Then wait for your input.  The whole word does have to be capitalized.
+
+Note: It doesn't work for one letter words, and it doesn't check a dictionary to ensure you've actually written a word.  Also, I typically delete the print statements, but I thought you may be interested to see the lines that were used for debugging purposes.
