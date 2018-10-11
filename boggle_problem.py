@@ -4,13 +4,19 @@ def createBoard():
 	for i in range(4):
 		for j in range(4):
 			coord.append("("+str(i)+","+str(j)+")")
-	board = {coord[0]:'A', coord[1]:'B', coord[2]:'C', coord[3]:'D', coord[4]:'E', coord[5]:'F', coord[6]:'G', coord[7]:'H', coord[8]:'I', coord[9]:'J', coord[10]:'K', coord[11]:'L', coord[12]:'M', coord[13]:'N', coord[14]:'O', coord[15]:'P'}
-	print(board)
-	return board
+	board = {coord[0]:'A', coord[1]:'B', coord[2]:'C', coord[3]:'D', coord[4]:'E', coord[5]:'M', coord[6]:'G', coord[7]:'I', coord[8]:'I', coord[9]:'O', coord[10]:'A', coord[11]:'L', coord[12]:'C', coord[13]:'X', coord[14]:'O', coord[15]:'Z'}
+	return board, coord
 
 #print the board to the user
-def printBoard(board):
-	return None
+def printBoard(board, coord, it = None):
+	if it == None:
+		it = 0
+	print(board[coord[it]]+', '+board[coord[it+1]]+', '+board[coord[it+2]]+', '+board[coord[it+3]])
+	it = it + 4
+	if it == 16:
+		return None
+	else:
+		printBoard(board, coord, it)
 
 #choose a word
 def getWord():
@@ -25,7 +31,7 @@ def printAnswer(isLegal):
 	return None
 
 if __name__ == "__main__":
-	board = createBoard()
-	#printBoard(board)
+	board, coord = createBoard()
+	printBoard(board, coord)
 	#chosenWord = getWord()
 	#printAnswer(isWordLegal(board, chosenWord))
